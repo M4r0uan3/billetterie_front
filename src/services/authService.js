@@ -16,7 +16,7 @@ export function login(username, password) {
       localStorage.setItem("refresh_token", res.data.refresh);
       axiosInstance.defaults.headers["Authorization"] =
         "JWT " + localStorage.getItem("access_token");
-      //   history.push("/");
+      window.location = "/";
       //console.log(res);
       //console.log(res.data);
     });

@@ -22,4 +22,5 @@ export function register(user) {
       console.log(res);
       console.log(res.data);
     });
+    
 }

@@ -2,17 +2,15 @@ import Form from "./common/form";
 import React from "react";
 import Joi from "joi-browser";
 import { register } from "../services/userService";
+import { useNavigate } from "react-router-dom";
 
 class RegisterForm extends Form {
-  // state = {
-  //   data: { username: "", email: "", password: "" },
-  //   errors: {},
-  // };
   schema = {
     username: Joi.string().required(),
     email: Joi.string().required().email().label("Email"),
     password: Joi.string().required().min(5).label("Password"),
   };
+
   doSubmit = async () => {
     try {
       const { data } = this.state;

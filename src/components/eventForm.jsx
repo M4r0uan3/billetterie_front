@@ -3,43 +3,40 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getThemes } from "../services/themeService";
 import { getEvent, saveEvent } from "../services/eventService";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import "./eventForm.css";
-
-// class EventForm extends Component {
-//   state = {
-//     data: {
-//       title: "",
-//       themeId: "",
-//       describtion: "",
-//       unitPrice: "",
-//     },
-//     themes: [],
-//     errors: {},
-//   };
-
-//   async componentDidMount() {
-//     const { data: themes } = await getThemes();
-//     this.setState({ themes });
-
-//     const eventId = this.props.value.matches.params.id;
-//     console.log(eventId);
-//     try {
-//       const { data: event } = await getEvent(eventId);
-//       this.setState({ data: this.mapToViewModel(event) });
-//     } catch (ex) {
-//       if (ex.response && ex.response.status === 404)
-//         this.props.history.repalce("/not-found");
-//     }
-//   }
-//   render() {
-//     return <h1>Form</h1>;
-//   }
-// }
+import axiosInstance from "../axios";
+import emailjs from "@emailjs/browser";
+import { toast } from "react-toastify";
 
 const EventForm = () => {
   let history = useNavigate();
   let { id } = useParams();
   let [event, setEvent] = useState(null);
+  const obj = {
+    email: "",
+    orderId: id,
+  };
+
+  const confirmOrder = async () => {
+    try {
+      const user = await axiosInstance.get("/auth/users/me");
+      obj.email = user.data.email;
+      emailjs
+        .send("service_fvjdi9b", "template_6nibjhw", obj, "dOwZAwwXEddueAB0A")
+        .then(
+          function (response) {
+            console.log("SUCCESS!", response.status, response.text);
+          },
+          function (error) {
+            console.log("FAILED...", error);
+          }
+        );
+      console.log(obj.email);
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
 
   useEffect(() => {
     async function getEventById() {
@@ -52,7 +49,7 @@ const EventForm = () => {
     }
     getEventById();
   }, [id]);
-  console.log(event);
+
   return (
     <div className="container">
       <div className="details" key={event?.id}>
@@ -65,13 +62,19 @@ const EventForm = () => {
             <span>{event?.unit_price} DH</span>
           </div>
           <p>{event?.description}</p>
-          <p>{event?.location}</p>
-          <button className="btn btn-dark">Add to cart</button>
-          <Link to="/events">
-            <button className="btn btn-outline-danger btn-md m-2">
-              Cancel
-            </button>
-          </Link>
+          <p className="text-muted">{event?.location}</p>
+          <div className="mt-auto">
+            <Button
+              className="w-100"
+              onClick={() => {
+                confirmOrder();
+                toast.success("Check your email inbox and confirm the order.");
+                history("/");
+              }}
+            >
+              Order
+            </Button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
+import { Card } from "react-bootstrap";
 
 class EventsList extends Component {
   //   raiseSort = (column) => {
@@ -16,28 +16,34 @@ class EventsList extends Component {
 
   render() {
     const { events } = this.props;
+    let quantity = 0;
     return (
       <div className="row">
         {events.map((event) => (
-          <div key={event.id} className="col mb-3">
-            <div className="card h-100 w-80" style={{ width: "18rem" }}>
-              <img
+          <div key={event.id} className="col-sm-4 mb-3">
+            <Card className="h-100">
+              <Card.Img
+                variant="top"
                 src={event.images[0].image}
+                height="70px"
                 className="img-thumbnail"
-                alt="..."
-                style={{ maxWidth: "24rem" }}
+                style={{ objectFit: "cover" }}
               />
-              <div className="card-body">
-                <h5 className="card-title">{event.title}</h5>
-                <p className="card-text">
-                  {event.city}, {event.location}
-                </p>
-                <p className="card-text">{event.unit_price} DH</p>
-                <Link to={`/events/${event.id}`} className="btn btn-primary">
-                  Go somewhere
-                </Link>
-              </div>
-            </div>
+              <Card.Body className="d-flex flex-column">
+                <Card.Title className="d-flex justify-content-between align-items-baseline mb-4">
+                  <span className="fs-5 ">{event.title}</span>
+                  <span className="ms-2 text-muted">{event.unit_price}DH</span>
+                </Card.Title>
+                <div className="mt-auto">
+                  <Link
+                    to={`/events/${event.id}`}
+                    className="btn btn-primary w-100"
+                  >
+                    Show More
+                  </Link>
+                </div>
+              </Card.Body>
+            </Card>
           </div>
         ))}
       </div>
@@ -46,26 +52,3 @@ class EventsList extends Component {
 }
 
 export default EventsList;
-
-//   <table className="table">
-//     <thead className="thead-dark">
-//       <tr>
-//         <th onClick={() => this.raiseSort("title")}>Title</th>
-//         <th onClick={() => this.raiseSort("theme")}>Theme</th>
-//         <th onClick={() => this.raiseSort("city")}>City</th>
-//         <th onClick={() => this.raiseSort("unit_price")}>Price</th>
-//         <th></th>
-//         <th></th>
-//       </tr>
-//     </thead>
-//     <tbody>
-//       {events.map((event) => (
-//         <tr key={event.title}>
-//           <td>{event.title}</td>
-//           <td>{event.theme}</td>
-//           <td>{event.city}</td>
-//           <td>{event.unit_price} DH</td>
-//         </tr>
-//       ))}
-//     </tbody>
-//   </table>

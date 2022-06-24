@@ -15,6 +15,7 @@ class RegisterForm extends Form {
     try {
       const { data } = this.state;
       const response = await register(data);
+      
       console.log(response);
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {

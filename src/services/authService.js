@@ -1,11 +1,7 @@
-// import http from "./httpService";
-// import config from "../config.json";
-// import { func } from "prop-types";
-// const apiEndpoint = config.apiUrl + "auth/jwt/create";
 import axiosInstance from "../axios";
+import jwtDecode from "jwt-decode";
 
 export function login(username, password) {
-  //   return http.post(apiEndpoint, { username, password });
   return axiosInstance
     .post(`auth/jwt/create`, {
       username,
@@ -17,7 +13,27 @@ export function login(username, password) {
       axiosInstance.defaults.headers["Authorization"] =
         "JWT " + localStorage.getItem("access_token");
       window.location = "/";
-      //console.log(res);
-      //console.log(res.data);
     });
 }
+
+export function logout() {
+  axiosInstance.post("auth/users/logout");
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  axiosInstance.defaults.headers["Authorization"] = null;
+}
+
+export function getCurrentUser() {
+  try {
+    const jwt = localStorage.getItem("access_token");
+    return jwtDecode(jwt);
+  } catch (ex) {
+    return null;
+  }
+}
+
+export default {
+  login,
+  logout,
+  getCurrentUser,
+};

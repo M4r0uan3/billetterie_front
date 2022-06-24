@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
-import { login } from "../services/authService";
+import auth from "../services/authService";
 import { useNavigate } from "react-router-dom";
+
 
 class LoginForm extends Form {
   schema = {
@@ -11,9 +12,8 @@ class LoginForm extends Form {
   };
   doSubmit = async () => {
     try {
-      // history = useNavigate();
       const { data } = this.state;
-      const { data: jwt } = await login(data.username, data.password);
+      await auth.login(data.username, data.password);
       // console.log(jwt);
     } catch (ex) {
       if (ex.response && ex.response.status === 401) {

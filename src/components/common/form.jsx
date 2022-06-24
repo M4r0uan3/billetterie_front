@@ -76,18 +76,6 @@ class Form extends Component {
       />
     );
   }
-  // renderSelect(name, label, options) {
-  //   return (
-  //     <Select
-  //       name={name}
-  //       label={label}
-  //       options={options}
-  //       selected={this.state.data[name]}
-  //       errors={this.state.errors[name]}
-  //       onChange={this.handleChange}
-  //     />
-  //   );
-  // }
 }
 
 export default Form;

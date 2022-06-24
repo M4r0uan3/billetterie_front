@@ -2,7 +2,6 @@ import Form from "./common/form";
 import React from "react";
 import Joi from "joi-browser";
 import { register } from "../services/userService";
-import { useNavigate } from "react-router-dom";
 
 class RegisterForm extends Form {
   schema = {
@@ -14,9 +13,8 @@ class RegisterForm extends Form {
   doSubmit = async () => {
     try {
       const { data } = this.state;
-      const response = await register(data);
+      await register(data);
       window.location = "/login";
-      // console.log(response);
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };

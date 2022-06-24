@@ -62,7 +62,9 @@ const EventForm = () => {
             <span>{event?.unit_price} DH</span>
           </div>
           <p>{event?.description}</p>
-          <p className="text-muted">{event?.location}</p>
+          <p className="text-muted">
+            {event?.city}, {event?.location}
+          </p>
           <div className="mt-auto">
             <Button
               className="w-100"

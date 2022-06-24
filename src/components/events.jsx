@@ -26,7 +26,7 @@ class Events extends Component {
     // console.log(themes_resp.data.results);
     const themes = [{ id: "", title: "All Themes" }, ...theme_resp.results];
     const { data: events_resp } = await getEvents();
-    console.log(events_resp);
+    // console.log(events_resp);
     this.setState({ events: events_resp.results, themes });
   }
   handlePageChange = (page) => {

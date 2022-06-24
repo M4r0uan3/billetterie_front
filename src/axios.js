@@ -47,10 +47,10 @@ axiosInstance.interceptors.response.use(
 
       if (refreshToken) {
         const tokenParts = JSON.parse(atob(refreshToken.split(".")[1]));
-        console.log(tokenParts);
+        // console.log(tokenParts);
         // exp date in token is expressed in seconds, while now() returns milliseconds:
         const now = Math.ceil(Date.now() / 1000);
-        console.log(tokenParts.exp);
+        // console.log(tokenParts.exp);
 
         if (tokenParts.exp > now) {
           return axiosInstance
@@ -63,7 +63,7 @@ axiosInstance.interceptors.response.use(
                 "JWT " + response.data.access;
               originalRequest.headers["Authorization"] =
                 "JWT " + response.data.access;
-              console.log(response);
+              // console.log(response);
               return axiosInstance(originalRequest);
             })
             .catch((err) => {

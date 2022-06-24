@@ -32,7 +32,7 @@ const EventForm = () => {
             console.log("FAILED...", error);
           }
         );
-      console.log(obj.email);
+      // console.log(obj.email);
     } catch (ex) {
       console.log(ex);
     }

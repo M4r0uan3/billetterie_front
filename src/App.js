@@ -31,8 +31,8 @@ class App extends Component {
             <Route path="/logout" element={<Logout />}></Route>
             <Route element={<PrivateRoutes user={this.state.user} />}>
               <Route path="/orders/:id" element={<OrderConfirmed />}></Route>
-              <Route path="/events/:id" element={<EventForm />}></Route>
             </Route>
+            <Route path="/events/:id" element={<EventForm />}></Route>
             <Route path="/events" element={<Events />}></Route>
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/" element={<Navigate to="/events" />}></Route>

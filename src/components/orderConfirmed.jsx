@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-const OrderConfirmed = () => {
+const OrderConfirmed = ({ user }) => {
   let history = useNavigate();
   let { id } = useParams();
   return (

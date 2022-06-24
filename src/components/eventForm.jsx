@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { getThemes } from "../services/themeService";
 import { getEvent, saveEvent } from "../services/eventService";
 import { Link } from "react-router-dom";
@@ -9,10 +9,11 @@ import axiosInstance from "../axios";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
 
-const EventForm = () => {
+const EventForm = ({ user }) => {
   let history = useNavigate();
   let { id } = useParams();
   let [event, setEvent] = useState(null);
+
   const obj = {
     email: "",
     orderId: id,
@@ -49,7 +50,6 @@ const EventForm = () => {
     }
     getEventById();
   }, [id]);
-
   return (
     <div className="container">
       <div className="details" key={event?.id}>

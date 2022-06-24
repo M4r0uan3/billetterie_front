@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Logout from "./components/logout";
 import auth from "./services/authService";
 import OrderConfirmed from "./components/orderConfirmed";
+import PrivateRoutes from "./utils/privateRoutes";
 
 class App extends Component {
   state = {};
@@ -28,14 +29,16 @@ class App extends Component {
           <Routes>
             <Route path="/login" element={<LoginForm />}></Route>
             <Route path="/logout" element={<Logout />}></Route>
-            <Route
-              path="/events/:id"
-              user={this.state.user}
-              element={<EventForm />}
-            ></Route>
+            <Route element={<PrivateRoutes user={this.state.user} />}>
+              <Route
+                path="/events/:id"
+                user={this.state.user}
+                element={<EventForm />}
+              ></Route>
+              <Route path="/orders/:id" element={<OrderConfirmed />}></Route>
+            </Route>
             <Route path="/events" element={<Events />}></Route>
             <Route path="/register" element={<RegisterForm />} />
-            <Route path="/orders/:id" element={<OrderConfirmed />}></Route>
             <Route path="/" element={<Navigate to="/events" />}></Route>
             <Route path="*" element={<NotFound />}></Route>
           </Routes>

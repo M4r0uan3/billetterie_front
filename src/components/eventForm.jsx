@@ -9,7 +9,7 @@ import axiosInstance from "../axios";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
 
-const EventForm = ({ user }) => {
+const EventForm = () => {
   let history = useNavigate();
   let { id } = useParams();
   let [event, setEvent] = useState(null);
